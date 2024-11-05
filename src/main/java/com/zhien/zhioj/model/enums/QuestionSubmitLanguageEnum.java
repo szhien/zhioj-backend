@@ -1,27 +1,28 @@
 package com.zhien.zhioj.model.enums;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * 用户角色枚举
+ * 题目提交语言枚举
  *
  * @author Zhien
- * 
+ *
  */
-public enum UserRoleEnum {
+public enum QuestionSubmitLanguageEnum {
 
-    USER("用户", "user"),
-    ADMIN("管理员", "admin"),
-    BAN("被封号", "ban");
+    JAVA("java", "java"),
+    CPLUSPLUS("c++", "c++"),
+    GOLANG("golang", "golang");
 
     private final String text;
 
     private final String value;
 
-    UserRoleEnum(String text, String value) {
+    QuestionSubmitLanguageEnum(String text, String value) {
         this.text = text;
         this.value = value;
     }
@@ -38,14 +39,14 @@ public enum UserRoleEnum {
     /**
      * 根据 value 获取枚举
      *
-     * @param value 传入的value值
-     * @return 根据传入的value值，获取该值所对应的枚举对象
+     * @param value
+     * @return  根据传入的value值，获取该值所对应的枚举对象
      */
-    public static UserRoleEnum getEnumByValue(String value) {
+    public static QuestionSubmitLanguageEnum getEnumByValue(String value) {
         if (ObjectUtils.isEmpty(value)) {
             return null;
         }
-        for (UserRoleEnum anEnum : UserRoleEnum.values()) {
+        for (QuestionSubmitLanguageEnum anEnum : QuestionSubmitLanguageEnum.values()) {
             if (anEnum.value.equals(value)) {
                 return anEnum;
             }

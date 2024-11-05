@@ -1,27 +1,28 @@
 package com.zhien.zhioj.model.enums;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * 用户角色枚举
+ * 题目提交状态枚举
  *
  * @author Zhien
- * 
  */
-public enum UserRoleEnum {
+public enum QuestionSubmitStatusEnum {
 
-    USER("用户", "user"),
-    ADMIN("管理员", "admin"),
-    BAN("被封号", "ban");
+    WAITING("待判题", 0),
+    RUNNING("判题中", 1),
+    SUCCEED("成功", 2),
+    FAILED("失败", 3);
 
     private final String text;
 
-    private final String value;
+    private final Integer value;
 
-    UserRoleEnum(String text, String value) {
+    QuestionSubmitStatusEnum(String text, Integer value) {
         this.text = text;
         this.value = value;
     }
@@ -31,21 +32,21 @@ public enum UserRoleEnum {
      *
      * @return 所有枚举值的list
      */
-    public static List<String> getValues() {
+    public static List<Integer> getValues() {
         return Arrays.stream(values()).map(item -> item.value).collect(Collectors.toList());
     }
 
     /**
      * 根据 value 获取枚举
      *
-     * @param value 传入的value值
+     * @param value 枚举值
      * @return 根据传入的value值，获取该值所对应的枚举对象
      */
-    public static UserRoleEnum getEnumByValue(String value) {
+    public static QuestionSubmitStatusEnum getEnumByValue(Integer value) {
         if (ObjectUtils.isEmpty(value)) {
             return null;
         }
-        for (UserRoleEnum anEnum : UserRoleEnum.values()) {
+        for (QuestionSubmitStatusEnum anEnum : QuestionSubmitStatusEnum.values()) {
             if (anEnum.value.equals(value)) {
                 return anEnum;
             }
@@ -53,7 +54,7 @@ public enum UserRoleEnum {
         return null;
     }
 
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 

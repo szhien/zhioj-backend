@@ -1,35 +1,28 @@
-package ${packageName}.model.dto.${dataKey};
+package com.zhien.zhioj.model.dto.question;
 
-import ${packageName}.common.PageRequest;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.zhien.zhioj.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
- * 查询${dataName}请求
+ * 查询请求
  *
  * @author Zhien
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ${upperDataKey}QueryRequest extends PageRequest implements Serializable {
+public class QuestionQueryRequest extends PageRequest implements Serializable {
 
     /**
      * id
      */
     private Long id;
-
-    /**
-     * id
-     */
-    private Long notId;
-
-    /**
-     * 搜索词
-     */
-    private String searchText;
 
     /**
      * 标题
@@ -42,14 +35,20 @@ public class ${upperDataKey}QueryRequest extends PageRequest implements Serializ
     private String content;
 
     /**
-     * 标签列表
+     * 标签列表（json 数组）
      */
     private List<String> tags;
+
+    /**
+     * 题目答案
+     */
+    private String answer;
 
     /**
      * 创建用户 id
      */
     private Long userId;
+
 
     private static final long serialVersionUID = 1L;
 }

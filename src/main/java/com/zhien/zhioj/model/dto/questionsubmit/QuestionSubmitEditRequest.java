@@ -1,4 +1,4 @@
-package ${packageName}.model.dto.${dataKey};
+package com.zhien.zhioj.model.dto.questionsubmit;
 
 import lombok.Data;
 
@@ -6,12 +6,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 更新${dataName}请求
+ * 编辑请求
  *
  * @author Zhien
+ *
  */
 @Data
-public class ${upperDataKey}UpdateRequest implements Serializable {
+public class QuestionSubmitEditRequest implements Serializable {
 
     /**
      * id

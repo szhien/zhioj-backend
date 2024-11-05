@@ -1,36 +1,54 @@
-package com.zhien.zhioj.model.entity;
+package com.zhien.zhioj.model.dto.questionsubmit;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zhien.zhioj.common.PageRequest;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 /**
- * 帖子点赞
+ * 查询请求
  *
  * @author Zhien
- * 
  */
-@TableName(value = "post_thumb")
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class PostThumb implements Serializable {
-
+public class QuestionSubmitQueryRequest extends PageRequest implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 帖子 id
+     * 编程语言
      */
-    private Long postId;
+    private String language;
+
+    /**
+     * 用户代码
+     */
+    private String code;
+
+    /**
+     * 判题信息（json 对象）
+     */
+    private JudgeInfo judgeInfo;
+
+    /**
+     * 判题状态（0 - 待判题、1 - 判题中、2 - 成功、3 - 失败）
+     */
+    private Integer status;
+
+    /**
+     * 题目 id
+     */
+    private Long questionId;
 
     /**
      * 创建用户 id
@@ -51,6 +69,5 @@ public class PostThumb implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

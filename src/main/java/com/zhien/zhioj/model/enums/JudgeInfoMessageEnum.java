@@ -1,27 +1,35 @@
 package com.zhien.zhioj.model.enums;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * 用户角色枚举
+ * 题目提交后，判题结果信息消息枚举
  *
  * @author Zhien
- * 
  */
-public enum UserRoleEnum {
+public enum JudgeInfoMessageEnum {
 
-    USER("用户", "user"),
-    ADMIN("管理员", "admin"),
-    BAN("被封号", "ban");
+    ACCEPTED("成功", "Accepted"),
+    WRONG_ANSWER("答案错误", "Wrong Answer"),
+    COMPILE_ERROR("编译错误", "Compile Error"),
+    MEMORY_LIMIT_EXCEEDED("内存溢出", "Memory Limit Exceeded"),
+    TIME_LIMIT_EXCEEDED("超时", "Time Limit Exceeded"),
+    PRESENTATION_ERROR("展示错误", "Presentation Error"),
+    WAITING("等待中", "Waiting"),
+    OUTPUT_LIMIT_EXCEEDED("输出溢出", "Output Limit Exceeded"),
+    DANGEROUS_OPERATION("危险操作", "Dangerous Operation"),
+    SYSTEM_ERROR("系统错误", "System Error"),
+    RUNNING_ERROR("运行错误", "Running Error");
 
     private final String text;
 
     private final String value;
 
-    UserRoleEnum(String text, String value) {
+    JudgeInfoMessageEnum(String text, String value) {
         this.text = text;
         this.value = value;
     }
@@ -38,14 +46,14 @@ public enum UserRoleEnum {
     /**
      * 根据 value 获取枚举
      *
-     * @param value 传入的value值
+     * @param value 枚举值
      * @return 根据传入的value值，获取该值所对应的枚举对象
      */
-    public static UserRoleEnum getEnumByValue(String value) {
+    public static JudgeInfoMessageEnum getEnumByValue(String value) {
         if (ObjectUtils.isEmpty(value)) {
             return null;
         }
-        for (UserRoleEnum anEnum : UserRoleEnum.values()) {
+        for (JudgeInfoMessageEnum anEnum : JudgeInfoMessageEnum.values()) {
             if (anEnum.value.equals(value)) {
                 return anEnum;
             }

@@ -1,10 +1,6 @@
 package com.zhien.zhioj.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,13 +10,12 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * 用户
- *
- * @author Zhien
+ * 题目
+ * @TableName question
  */
-@TableName(value = "user")
+@TableName(value ="question")
 @Data
-public class User implements Serializable {
+public class Question implements Serializable {
     /**
      * id
      */
@@ -28,44 +23,59 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 用户账号
+     * 标题
      */
-    private String userAccount;
+    private String title;
 
     /**
-     * 用户密码
+     * 内容
      */
-    private String userPassword;
+    private String content;
 
     /**
-     * 开放平台id
+     * 标签列表（json 数组）
      */
-    private String unionId;
+    private String tags;
 
     /**
-     * 公众号openId
+     * 题目答案
      */
-    private String mpOpenId;
+    private String answer;
 
     /**
-     * 用户昵称
+     * 题目提交数
      */
-    private String userName;
+    private Integer submitNum;
 
     /**
-     * 用户头像
+     * 题目通过数
      */
-    private String userAvatar;
+    private Integer acceptedNum;
 
     /**
-     * 用户简介
+     * 判题用例（json 数组）
      */
-    private String userProfile;
+    private String judgeCase;
 
     /**
-     * 用户角色：user/admin/ban
+     * 判题配置（json 对象）
      */
-    private String userRole;
+    private String judgeConfig;
+
+    /**
+     * 点赞数
+     */
+    private Integer thumbNum;
+
+    /**
+     * 收藏数
+     */
+    private Integer favourNum;
+
+    /**
+     * 创建用户 id
+     */
+    private Long userId;
 
     /**
      * 创建时间
@@ -82,7 +92,7 @@ public class User implements Serializable {
     private Date updateTime;
 
     /**
-     * 是否删除
+     * 是否删除(逻辑删除)
      */
     @TableLogic
     private Integer isDelete;
