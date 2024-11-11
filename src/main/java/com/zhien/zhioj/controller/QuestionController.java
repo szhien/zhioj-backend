@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -141,6 +140,29 @@ public class QuestionController {
 
     /**
      * 根据 id 获取
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/get")
+    public BaseResponse<Question> getQuestionById(Long id, HttpServletRequest request) {
+        if (id <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Question question = questionService.getById(id);
+        if (question == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        //判断权限：不是本人并不是管理员是不可以获取所有未脱敏信息的
+        User loginUser = userService.getLoginUser(request);
+        if (!question.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
+            return ResultUtils.error(ErrorCode.FORBIDDEN_ERROR.getCode(),"您没有权限获取该题目的所有信息");
+        }
+        return ResultUtils.success(question);
+    }
+
+    /**
+     * 根据 id 获取(脱敏)
      *
      * @param id
      * @return

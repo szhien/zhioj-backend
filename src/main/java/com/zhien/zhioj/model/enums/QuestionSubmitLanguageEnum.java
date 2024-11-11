@@ -1,5 +1,6 @@
 package com.zhien.zhioj.model.enums;
 
+import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.Arrays;
@@ -10,13 +11,13 @@ import java.util.stream.Collectors;
  * 题目提交语言枚举
  *
  * @author Zhien
- *
  */
+@Getter
 public enum QuestionSubmitLanguageEnum {
 
     JAVA("java", "java"),
-    CPLUSPLUS("c++", "c++"),
-    GOLANG("golang", "golang");
+    CPLUSPLUS("cpp", "cpp"),
+    GOLANG("go", "go");
 
     private final String text;
 
@@ -40,7 +41,7 @@ public enum QuestionSubmitLanguageEnum {
      * 根据 value 获取枚举
      *
      * @param value
-     * @return  根据传入的value值，获取该值所对应的枚举对象
+     * @return 根据传入的value值，获取该值所对应的枚举对象
      */
     public static QuestionSubmitLanguageEnum getEnumByValue(String value) {
         if (ObjectUtils.isEmpty(value)) {
@@ -54,11 +55,4 @@ public enum QuestionSubmitLanguageEnum {
         return null;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public String getText() {
-        return text;
-    }
 }

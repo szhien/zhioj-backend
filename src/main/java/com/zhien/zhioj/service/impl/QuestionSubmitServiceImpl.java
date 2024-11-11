@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhien.zhioj.common.ErrorCode;
 import com.zhien.zhioj.constant.CommonConstant;
 import com.zhien.zhioj.exception.BusinessException;
+import com.zhien.zhioj.judge.JudgeService;
 import com.zhien.zhioj.model.dto.questionsubmit.JudgeInfo;
 import com.zhien.zhioj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.zhien.zhioj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
@@ -26,6 +27,7 @@ import com.zhien.zhioj.service.UserService;
 import com.zhien.zhioj.utils.SqlUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -47,6 +50,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private QuestionService questionService;
     @Resource
     private UserService userService;
+
+    @Resource
+    @Lazy
+    private JudgeService judgeService;
 
     /**
      * 题目提交
@@ -83,7 +90,13 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "题目提交失败!");
         }
-        return questionSubmit.getId();
+        //TODO 提交代码至判题服务
+        Long questionSubmitId = questionSubmit.getId();
+        //异步调用判题服务
+        CompletableFuture.runAsync(() -> {
+            judgeService.doJudge(questionSubmitId);
+        });
+        return questionSubmitId;
     }
 
 
